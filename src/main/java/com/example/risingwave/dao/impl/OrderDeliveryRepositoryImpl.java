@@ -1,7 +1,7 @@
 package com.example.risingwave.dao.impl;
 
 import com.example.risingwave.dao.OrderDeliveryRepository;
-import com.example.risingwave.views.RestaurantOrdersView;
+import com.example.risingwave.entity.RestaurantOrdersView;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;

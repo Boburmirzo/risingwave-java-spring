@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Table(name = "restaurant_orders_view")
-public class OrderDelivery implements Serializable {
+public class RestaurantOrdersView implements Serializable {
 
     @Id
     @Column(name = "restaurant_id")

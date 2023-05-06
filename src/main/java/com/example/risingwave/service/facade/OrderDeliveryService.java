@@ -1,6 +1,6 @@
 package com.example.risingwave.service.facade;
 
-import com.example.risingwave.views.RestaurantOrdersView;
+import com.example.risingwave.entity.RestaurantOrdersView;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.example.risingwave.web;
 
 
+import com.example.risingwave.entity.RestaurantOrdersView;
 import com.example.risingwave.service.facade.OrderDeliveryService;
-import com.example.risingwave.views.RestaurantOrdersView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

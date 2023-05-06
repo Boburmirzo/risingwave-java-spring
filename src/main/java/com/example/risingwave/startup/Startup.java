@@ -20,7 +20,8 @@ import java.util.List;
 public class Startup implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
     public static final String CREATE_MATERIALIZED_VIEW = "CREATE MATERIALIZED VIEW %s AS %s";
-    public static final String CREATE_RISINGWAVE_SOURCE_TABLE = "CREATE TABLE delivery_orders_source (\n" +
+    public static final String DROP_MATERIALIZED_VIEW_IF_EXISTS = "DROP MATERIALIZED VIEW IF EXISTS %s";
+    public static final String CREATE_RISINGWAVE_SOURCE_TABLE = "CREATE TABLE IF NOT EXISTS delivery_orders_source (\n" +
         "    order_id BIGINT,\n" +
         "    restaurant_id BIGINT,\n" +
         "    order_state VARCHAR,\n" +
@@ -51,8 +52,10 @@ public class Startup implements CommandLineRunner {
         try {
             List<MaterializeView> materializeViews = mapper.readValue(inputStream, typeReference);
             materializeViews.forEach(materializeView -> {
-                String sql = String.format(CREATE_MATERIALIZED_VIEW, materializeView.getName(), materializeView.getQuery());
-                jdbcTemplate.execute(sql);
+                String dropSql = String.format(DROP_MATERIALIZED_VIEW_IF_EXISTS, materializeView.getName());
+                jdbcTemplate.execute(dropSql);
+                String createSql = String.format(CREATE_MATERIALIZED_VIEW, materializeView.getName(), materializeView.getQuery());
+                jdbcTemplate.execute(createSql);
             });
         } catch (IOException e) {
             log.error("Unable to create view: " + e.getMessage());

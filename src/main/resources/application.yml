@@ -6,7 +6,7 @@ spring:
   application:
     name: materialized-view-api
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:4566/dev"}
+    url: jdbc:postgresql://localhost:4566/dev
     username: root
     password:
     hikari:

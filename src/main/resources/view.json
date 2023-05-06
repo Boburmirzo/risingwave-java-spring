@@ -1,10 +1,6 @@
 [
   {
-    "name": "campaings_view",
-    "query": "SELECT * FROM campaigns;"
-  },
-  {
-    "name": "campaings_view_status",
-    "query": "SELECT statut_courant, COUNT(*) FROM campaigns GROUP BY statut_courant;"
+    "name": "restaurant_orders_view",
+    "query": "SELECT window_start, restaurant_id,COUNT(*) AS total_order FROM HOP(delivery_orders_source, order_timestamp, INTERVAL '1' MINUTE, INTERVAL '15' MINUTE) WHERE order_state = 'CREATED' GROUP BY restaurant_id, window_start;"
   }
 ]

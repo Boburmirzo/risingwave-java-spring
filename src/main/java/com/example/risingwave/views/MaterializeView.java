@@ -1,4 +1,4 @@
-package com.example.risingwave.bo;
+package com.example.risingwave.views;
 
 import lombok.Getter;
 import lombok.Setter;

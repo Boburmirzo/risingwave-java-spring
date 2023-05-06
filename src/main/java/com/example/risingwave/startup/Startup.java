@@ -1,6 +1,6 @@
 package com.example.risingwave.startup;
 
-import com.example.risingwave.bo.MaterializeView;
+import com.example.risingwave.views.MaterializeView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,27 @@ import java.util.List;
 @Slf4j
 public class Startup implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
-    public static final String CREATE_MATERIALIZED_VIEW = "CREATE MATERIALIZED VIEW IF NOT EXISTS %s AS %s";
+    public static final String CREATE_MATERIALIZED_VIEW = "CREATE MATERIALIZED VIEW %s AS %s";
+    public static final String CREATE_RISINGWAVE_SOURCE_TABLE = "CREATE TABLE delivery_orders_source (\n" +
+        "    order_id BIGINT,\n" +
+        "    restaurant_id BIGINT,\n" +
+        "    order_state VARCHAR,\n" +
+        "    order_timestamp TIMESTAMP\n" +
+        ") WITH (\n" +
+        "    connector = 'kafka',\n" +
+        "    topic = 'delivery_orders',\n" +
+        "    properties.bootstrap.server = 'message_queue:29092',\n" +
+        "    scan.startup.mode = 'earliest'\n" +
+        ") ROW FORMAT JSON;";
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+        createDeliveryOrdersSourceTable();
         createMaterializeViews();
+    }
+
+    public void createDeliveryOrdersSourceTable() {
+        jdbcTemplate.execute(CREATE_RISINGWAVE_SOURCE_TABLE);
     }
 
     public void createMaterializeViews() {

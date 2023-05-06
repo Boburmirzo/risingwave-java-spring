@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  application:
+    name: materialized-view-api
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:4566/dev"}
+    username: root
+    password:
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+  sql:
+    init:
+      platform: postgres
+## Logging properties
+logging:
+  level:
+    root: INFO

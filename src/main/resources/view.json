@@ -1,0 +1,10 @@
+[
+  {
+    "name": "campaings_view",
+    "query": "SELECT * FROM campaigns;"
+  },
+  {
+    "name": "campaings_view_status",
+    "query": "SELECT statut_courant, COUNT(*) FROM campaigns GROUP BY statut_courant;"
+  }
+]
